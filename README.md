@@ -4,7 +4,13 @@ Test a cable by putting power on each pin sequentially, and check at the other s
 
 
 # Problem
-We make a lot of different, custom cables. Each one needs to be tested, but the number of identical cables is too low to make a dedicated tester for each one. So a self-learning, universal tester is needed.
+When a lot of different cables have to be tested, it's not economic to make a custom tester for each one. So a universal tester is needed. 
+
+# Use case: Testing a batch of cables that all should be identical to a known good cable.
+The tester needs to recognize a know-good cable, and compare other cables against that known good cable. The indication can be as simple as a green and red LED for pass / fail. Optionally 
+# Use case: Sorting cables by pinout.
+The user has a pile of cables with unknown pinout. The cables can be all RJ45, but some can be various kind of network cables (different number of wires, crossed over / straight), ISDN, or various custom cables. 
+The tester needs to display the measured pinout of the cable. This can be done by a display on the tester itself, or via a serial port with a serial terminal.
 
 # Solution
 The tester is trained on a known-good cable, and then it provides a fail/pass indication.
@@ -21,7 +27,23 @@ The tester is trained on a known-good cable, and then it provides a fail/pass in
 ## Load cables from a file. (planned)
 ## Show the result of the last 100 measurements, to catch intermitted faults (planned)
 ## Use one microcontroller as master, and connect other microcontrollers as slaves to increase pincount. (planned)
-## Show the current and the expected pinout on a screen (planned) 
+### Use one serial port in a ring structure to give the slaves an address.
+Each slave receives a byte, increases the byte by one, and sends it to the next slave. The master then receives a byte containing the number of slaves.
+### Use the second serial port to send commands to the slaves, and to receive replys, on one party line. Slaves only respond to commands with their address.
+* communication frame: Start of command bit
+* address bits
+* command (assert output, clear output, get inputs)
+* command argument (output number)
+#### reply
+* Start of reply bit
+* address bits
+* command
+* reply length (bytes)
+* measured inputs
+
+## Show the current and the expected pinout on a screen (planned)
+## Show the current and expected pinout on a serial console (planned)
+
 
 # Status
 Firmware: No firmware has been written yet. See documents/todo-cable-tester-firmware.mm for the roadmap. This file requires freeplane to open (https://docs.freeplane.org/)
@@ -39,8 +61,18 @@ To be written
 # flashing the microcontroller
 To be written
 
+
+# hardware
+## SPI Oled screen:
+https://nl.aliexpress.com/item/1005004166227174.html
+
+## pi pico
+https://nl.aliexpress.com/item/1005003753880564.html
+https://nl.farnell.com/raspberry-pi/raspberry-pi-pico/raspberry-pi-32bit-arm-cortex/dp/3643332
+https://nl.farnell.com/raspberry-pi/raspberry-pi-pico-h/raspberry-pi-board-arm-cortex/dp/3996081
+https://nl.farnell.com/raspberry-pi/raspberry-pi-pico-w/raspberry-pi-board-arm-cortex/dp/3996082
 # License
-Copyright This file is part of cable-tester which is released under GPL2 or higher or (at your option) LGPL2 or higher.
+Copyright 2013 Cedric de Wijs. This file is part of cable-tester which is released under GPL2 or higher or (at your option) LGPL2 or higher.
 See file LICENSE-GPL.txt or LICENSE-LGPL.txt for details
 # Disclaimer
 THIS SOFTWARE AND HARDWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS AND CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE OR HARDWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
