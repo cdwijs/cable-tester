@@ -49,7 +49,24 @@ Each slave receives a byte, increases the byte by one, and sends it to the next 
 Firmware: No firmware has been written yet. See documents/todo-cable-tester-firmware.mm for the roadmap. This file requires freeplane to open (https://docs.freeplane.org/)
 Hardware: No hardware has been chosen, and no schematics have been made yet.
 
-# Building
+# Firmware
+## Pi Pico
+### Debugging
+Eclipse
+|
+OpenOCD
+|
+RP2040 running picoLink
+|
+RP2040 running cable tester firmware
+
+
+References: 
+https://mcuoneclipse.com/2022/09/17/picoprobe-using-the-raspberry-pi-pico-as-debug-probe/
+https://mcuoneclipse.com/2023/04/08/open-source-picolink-raspberry-pi-rp2040-cmsis-dap-debug-probe/
+OpenOCD has Raspberry Pi Pico RP2040 support in the Flash Layer as of 0.12.0
+https://github.com/berrak/eclipse-ide-debug-pico-howto
+
 ## building on Windows
 To be written
 ## building on Linux
