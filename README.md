@@ -60,12 +60,31 @@ RP2040 running picoLink
 |
 RP2040 running cable tester firmware
 
-
 References: 
 https://mcuoneclipse.com/2022/09/17/picoprobe-using-the-raspberry-pi-pico-as-debug-probe/
 https://mcuoneclipse.com/2023/04/08/open-source-picolink-raspberry-pi-rp2040-cmsis-dap-debug-probe/
 OpenOCD has Raspberry Pi Pico RP2040 support in the Flash Layer as of 0.12.0
 https://github.com/berrak/eclipse-ide-debug-pico-howto
+
+#### installing clipse on arch linux:
+https://aur.archlinux.org/packages/eclipse-cpp
+```bash
+$ wget https://aur.archlinux.org/cgit/aur.git/snapshot/eclipse-cpp.tar.gz
+$ cd eclipse-cpp
+$ makepkg
+# pacman -U pacman -U eclipse-cpp-2\:4.28-2-x86_64.pkg.tar
+```
+Help->install new software->add:
+Name: embed-cdt
+Location: https://download.eclipse.org/embed-cdt/updates/v6/
+Install:
+Embedded C/C++ GDB JTAG Debugging
+Embedded C/C++ J-Link Debugging.
+
+todo: install pipico sdk
+
+references:
+https://mcuoneclipse.com/2022/07/16/getting-started-raspberry-pi-pico-rp2040-with-eclipse-and-j-link/
 
 ## building on Windows
 To be written
