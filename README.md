@@ -128,6 +128,12 @@ https://nl.aliexpress.com/item/1005003753880564.html
 https://nl.farnell.com/raspberry-pi/raspberry-pi-pico/raspberry-pi-32bit-arm-cortex/dp/3643332
 https://nl.farnell.com/raspberry-pi/raspberry-pi-pico-h/raspberry-pi-board-arm-cortex/dp/3996081
 https://nl.farnell.com/raspberry-pi/raspberry-pi-pico-w/raspberry-pi-board-arm-cortex/dp/3996082
+
+
+## Tang nano 9k FPGA
+https://learn.lushaylabs.com/getting-setup-with-the-tang-nano-9k/
+https://nl.aliexpress.com/item/4000336442972.html
+
 # License
 Copyright 2013 Cedric de Wijs. This file is part of cable-tester which is released under GPL2 or higher or (at your option) LGPL2 or higher.
 See file LICENSE-GPL.txt or LICENSE-LGPL.txt for details
