@@ -56,7 +56,7 @@ Eclipse
 |
 OpenOCD
 |
-RP2040 running picoLink
+RP2040 running picoprobe
 |
 RP2040 running cable tester firmware
 
@@ -82,10 +82,31 @@ Embedded C/C++ GDB JTAG Debugging
 Embedded C/C++ J-Link Debugging.
 
 todo: install pipico sdk
+```bash
+# pacman -S arm-none-eabi-binutils arm-none-eabi-gcc arm-none-eabi-newlib
+$ wget https://aur.archlinux.org/cgit/aur.git/snapshot/pico-sdk.tar.gz
+$ tar -xf pico-sdk.tar.gz
+$ cd pico-sdk
+$ makepkg
+# pacman -U pico-sdk-1.5.1-1-any.pkg.tar
+```
+```bash
+$ git clone --recursive https://github.com/raspberrypi/picoprobe.git
+$ cd picoprobe
+$ mkdir build
+$ cd build
+$ export PICO_SDK_PATH=/usr/share/pico-sdk
+$ cmake ..
+$ make
+$ ls -l picoprobe.uf2 
+-rw-r--r-- 1 cedric cedric 80896 Aug 10 21:03 picoprobe.uf2
+```
+
+
 
 references:
 https://mcuoneclipse.com/2022/07/16/getting-started-raspberry-pi-pico-rp2040-with-eclipse-and-j-link/
-
+https://github.com/raspberrypi/picoprobe
 ## building on Windows
 To be written
 ## building on Linux
