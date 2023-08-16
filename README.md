@@ -66,6 +66,8 @@ https://mcuoneclipse.com/2023/04/08/open-source-picolink-raspberry-pi-rp2040-cms
 OpenOCD has Raspberry Pi Pico RP2040 support in the Flash Layer as of 0.12.0
 https://github.com/berrak/eclipse-ide-debug-pico-howto
 
+https://github.com/raspberrypi/picoprobe
+
 #### installing clipse on arch linux:
 https://aur.archlinux.org/packages/eclipse-cpp
 ```bash
@@ -81,7 +83,10 @@ Install:
 Embedded C/C++ GDB JTAG Debugging
 Embedded C/C++ J-Link Debugging.
 
-todo: install pipico sdk
+todo: install pipico sdk on Ubuntu 22.04 (to be able to use github hosted runners)
+reference: https://lindevs.com/set-up-raspberry-pi-pico-sdk-on-ubuntu/
+
+
 ```bash
 # pacman -S arm-none-eabi-binutils arm-none-eabi-gcc arm-none-eabi-newlib
 $ wget https://aur.archlinux.org/cgit/aur.git/snapshot/pico-sdk.tar.gz
@@ -133,6 +138,36 @@ https://nl.farnell.com/raspberry-pi/raspberry-pi-pico-w/raspberry-pi-board-arm-c
 ## Tang nano 9k FPGA
 https://learn.lushaylabs.com/getting-setup-with-the-tang-nano-9k/
 https://nl.aliexpress.com/item/4000336442972.html
+
+## run github actions locally:
+https://aur.archlinux.org/packages/act
+``` bash
+[cedric@cedric cable-tester]$ act
+? Please choose the default image you want to use with act:
+
+  - Large size image: +20GB Docker image, includes almost all tools used on GitHub Actions (IMPORTANT: currently only ubuntu-18.04 platform is available)
+  - Medium size image: ~500MB, includes only necessary tools to bootstrap actions and aims to be compatible with all actions
+  - Micro size image: <200MB, contains only NodeJS required to bootstrap actions, doesn't work with all actions
+
+Default image and other options can be changed manually in ~/.actrc (please refer to https://github.com/nektos/act#configuration for additional information about file structure) Medium
+[CI/build] 🚀  Start image=catthehacker/ubuntu:act-latest
+[CI/build]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+[CI/build]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[]
+[CI/build]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[]
+[CI/build] ⭐ Run Main actions/checkout@v3
+[CI/build]   🐳  docker cp src=/home/cedric/overflow/github/cable-tester/. dst=/home/cedric/overflow/github/cable-tester
+[CI/build]   ✅  Success - Main actions/checkout@v3
+[CI/build] ⭐ Run Main Run a one-line script
+[CI/build]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/1] user= workdir=
+| Hello, world!
+[CI/build]   ✅  Success - Main Run a one-line script
+[CI/build] ⭐ Run Main Run a multi-line script
+[CI/build]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2] user= workdir=
+| Add other actions to build,
+| test, and deploy your project.
+[CI/build]   ✅  Success - Main Run a multi-line script
+[CI/build] 🏁  Job succeeded
+```
 
 # License
 Copyright 2013 Cedric de Wijs. This file is part of cable-tester which is released under GPL2 or higher or (at your option) LGPL2 or higher.
