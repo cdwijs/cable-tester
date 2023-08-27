@@ -112,6 +112,128 @@ $ ls -l picoprobe.uf2
 references:
 https://mcuoneclipse.com/2022/07/16/getting-started-raspberry-pi-pico-rp2040-with-eclipse-and-j-link/
 https://github.com/raspberrypi/picoprobe
+
+
+## Building picoprobe
+``` bash
+$ cd ~/
+$ mkdir pico
+$ cd pico
+
+$ git clone https://github.com/raspberrypi/pico-sdk.git --branch master
+$ cd pico-sdk
+$ git submodule update --init
+$ cd ..
+$ git clone https://github.com/raspberrypi/pico-examples.git --branch master #optional
+
+$ git clone https://github.com/raspberrypi/picoprobe.git
+$ cd picoprobe
+$ git submodule update --init
+$ mkdir build
+$ cd build
+$ export PICO_SDK_PATH=../../pico-sdk
+$ cmake ..
+$ make -j4
+```
+
+Complete output excluding the build itself:
+``` bash
+[cedric@cedric ~]$ cd
+[cedric@cedric ~]$ mkdir pico
+[cedric@cedric ~]$ cd pico
+[cedric@cedric pico]$ git clone https://github.com/raspberrypi/pico-sdk.git --branch master
+Cloning into 'pico-sdk'...
+remote: Enumerating objects: 7587, done.
+remote: Counting objects: 100% (2242/2242), done.
+remote: Compressing objects: 100% (410/410), done.
+remote: Total 7587 (delta 1889), reused 1890 (delta 1814), pack-reused 5345
+Receiving objects: 100% (7587/7587), 2.61 MiB | 3.49 MiB/s, done.
+Resolving deltas: 100% (4163/4163), done.
+[cedric@cedric pico]$ cd pico-sdk
+[cedric@cedric pico-sdk]$ git submodule update --init
+Submodule 'lib/btstack' (https://github.com/bluekitchen/btstack.git) registered for path 'lib/btstack'
+Submodule 'lib/cyw43-driver' (https://github.com/georgerobotics/cyw43-driver.git) registered for path 'lib/cyw43-driver'
+Submodule 'lib/lwip' (https://github.com/lwip-tcpip/lwip.git) registered for path 'lib/lwip'
+Submodule 'lib/mbedtls' (https://github.com/Mbed-TLS/mbedtls.git) registered for path 'lib/mbedtls'
+Submodule 'tinyusb' (https://github.com/hathach/tinyusb.git) registered for path 'lib/tinyusb'
+Cloning into '/home/cedric/pico/pico-sdk/lib/btstack'...
+Cloning into '/home/cedric/pico/pico-sdk/lib/cyw43-driver'...
+Cloning into '/home/cedric/pico/pico-sdk/lib/lwip'...
+Cloning into '/home/cedric/pico/pico-sdk/lib/mbedtls'...
+Cloning into '/home/cedric/pico/pico-sdk/lib/tinyusb'...
+Submodule path 'lib/btstack': checked out '72ef1732c954d938091467961e41f4aa9b976b34'
+Submodule path 'lib/cyw43-driver': checked out '8ef38a6d32c54f850bff8f189bdca19ded33792a'
+Submodule path 'lib/lwip': checked out '239918ccc173cb2c2a62f41a40fd893f57faf1d6'
+Submodule path 'lib/mbedtls': checked out 'a77287f8fa6b76f74984121fdafc8563147435c8'
+Submodule path 'lib/tinyusb': checked out '86c416d4c0fb38432460b3e11b08b9de76941bf5'
+[cedric@cedric pico-sdk]$ cd ..
+[cedric@cedric pico]$ git clone https://github.com/raspberrypi/pico-examples.git --branch master
+Cloning into 'pico-examples'...
+remote: Enumerating objects: 2763, done.
+remote: Counting objects: 100% (148/148), done.
+remote: Compressing objects: 100% (97/97), done.
+remote: Total 2763 (delta 64), reused 118 (delta 50), pack-reused 2615
+Receiving objects: 100% (2763/2763), 7.93 MiB | 3.13 MiB/s, done.
+Resolving deltas: 100% (1394/1394), done.
+[cedric@cedric pico]$ pwd
+/home/cedric/pico
+[cedric@cedric pico]$ git clone https://github.com/raspberrypi/picoprobe.git
+Cloning into 'picoprobe'...
+remote: Enumerating objects: 357, done.
+remote: Counting objects: 100% (357/357), done.
+remote: Compressing objects: 100% (161/161), done.
+remote: Total 357 (delta 257), reused 241 (delta 191), pack-reused 0
+Receiving objects: 100% (357/357), 77.87 KiB | 2.78 MiB/s, done.
+Resolving deltas: 100% (257/257), done.
+[cedric@cedric pico]$ cd picoprobe
+[cedric@cedric picoprobe]$ git submodule update --init
+Submodule 'CMSIS_5' (https://github.com/ARM-software/CMSIS_5) registered for path 'CMSIS_5'
+Submodule 'freertos' (https://github.com/FreeRTOS/FreeRTOS-Kernel) registered for path 'freertos'
+Cloning into '/home/cedric/pico/picoprobe/CMSIS_5'...
+Cloning into '/home/cedric/pico/picoprobe/freertos'...
+Submodule path 'CMSIS_5': checked out 'a65b7c9a3e6502127fdb80eb288d8cbdf251a6f4'
+Submodule path 'freertos': checked out '2dfdfc4ba4d8bb487c8ea6b5428d7d742ce162b8'
+[cedric@cedric picoprobe]$ mkdir build
+[cedric@cedric picoprobe]$ cd build
+[cedric@cedric build]$ export PICO_SDK_PATH=../../pico-sdk
+[cedric@cedric build]$ ls ../../pico-sdk
+cmake  CMakeLists.txt  CONTRIBUTING.md	docs  external	lib  LICENSE.TXT  pico_sdk_init.cmake  pico_sdk_version.cmake  README.md  src  test  tools
+[cedric@cedric build]$ cmake ..
+Using PICO_SDK_PATH from environment ('../../pico-sdk')
+PICO_SDK_PATH is /home/cedric/pico/pico-sdk
+Defaulting PICO_PLATFORM to rp2040 since not specified.
+Defaulting PICO platform compiler to pico_arm_gcc since not specified.
+-- Defaulting build type to 'Release' since not specified.
+PICO compiler is pico_arm_gcc
+-- The C compiler identification is GNU 13.2.0
+-- The CXX compiler identification is GNU 13.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/arm-none-eabi-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/arm-none-eabi-g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- The ASM compiler identification is GNU
+-- Found assembler: /usr/bin/arm-none-eabi-gcc
+Build type is Release
+Defaulting PICO target board to pico since not specified.
+Using board configuration from /home/cedric/pico/pico-sdk/src/boards/include/boards/pico.h
+-- Found Python3: /usr/bin/python3.11 (found version "3.11.3") found components: Interpreter 
+TinyUSB available at /home/cedric/pico/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040; enabling build support for USB.
+BTstack available at /home/cedric/pico/pico-sdk/lib/btstack
+cyw43-driver available at /home/cedric/pico/pico-sdk/lib/cyw43-driver
+Pico W Bluetooth build support available.
+lwIP available at /home/cedric/pico/pico-sdk/lib/lwip
+mbedtls available at /home/cedric/pico/pico-sdk/lib/mbedtls
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/cedric/pico/picoprobe/build
+```
+
 ## building on Windows
 To be written
 ## building on Linux
@@ -142,6 +264,7 @@ https://nl.aliexpress.com/item/4000336442972.html
 ## run github actions locally:
 https://aur.archlinux.org/packages/act
 ``` bash
+[cedric@cedric cable-tester]$ sudo systemctl start docker
 [cedric@cedric cable-tester]$ act
 ? Please choose the default image you want to use with act:
 
@@ -168,6 +291,18 @@ Default image and other options can be changed manually in ~/.actrc (please refe
 [CI/build]   ✅  Success - Main Run a multi-line script
 [CI/build] 🏁  Job succeeded
 ```
+
+
+## running a virtual pi pico in CI/CD:
+https://docs.wokwi.com/wokwi-ci/getting-started
+
+## pi pico PIO emulator:
+https://rp2040pio-docs.readthedocs.io/en/latest/introduction.html
+
+https://github.com/NathanY3G/rp2040-pio-emulator
+
+Online:
+https://wokwi.com/projects/new/pi-pico
 
 # License
 Copyright 2013 Cedric de Wijs. This file is part of cable-tester which is released under GPL2 or higher or (at your option) LGPL2 or higher.
