@@ -26,22 +26,26 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install build dependenties
-        run: sudo apt update -y && sudo apt install -y cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential
+        run: |
+          mkdir build &&
+          sudo apt update -y &&
+          sudo apt install -y cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential
         #run: sudo apt install libstdc++-arm-none-eabi-newlib #test if this is really needed
 
       - name: Get Pico SDK and dependenties
         run: | #https://stackoverflow.com/questions/59954185/github-action-split-long-command-into-multiple-lines
           git clone https://github.com/raspberrypi/pico-sdk.git --branch master && \
           cd pico-sdk && \
-          git submodule update --init && \ 
-          cd .. 
+          git submodule update --init && \
+          cd ..
 
+      #picoprobe used as an example, should be the source in this repository
       - name: Compile RP2040 source
         run: | 
-          git clone https://github.com/raspberrypi/picoprobe.git && \ #used as an example, should be the source in this repository
+          git clone https://github.com/raspberrypi/picoprobe.git && \
           cd picoprobe && \
           git submodule update --init && \
-          mkdir -p build && \
+          mkdir build && \
           cd build && \
           export PICO_SDK_PATH=../../pico-sdk && \
           cmake .. && \
