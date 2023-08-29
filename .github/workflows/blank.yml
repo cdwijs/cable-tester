@@ -54,12 +54,11 @@ jobs:
 
       #upload artifacts
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/checkout@v3
         with:
-          name: full build directory
-          path: |
-            picoprobe/build/picoprobe.uf2
-
+          name: picoprobe.uf2
+          path: picoprobe/build/picoprobe.uf2
+          content_type:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
