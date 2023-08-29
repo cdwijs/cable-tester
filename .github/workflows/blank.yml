@@ -49,7 +49,17 @@ jobs:
           cd build && \
           export PICO_SDK_PATH=../../pico-sdk && \
           cmake .. && \
-          make
+          make && \
+          cd ..
+
+      #upload artifacts
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: full build directory
+          path: |
+            picoprobe/build/picoprobe.uf2
+
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
