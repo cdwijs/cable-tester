@@ -39,15 +39,25 @@ jobs:
           git submodule update --init && \
           cd ..
 
-      #picoprobe used as an example, should be the source in this repository
+#      #picoprobe used as an example, should be the source in this repository
+#      - name: Compile RP2040 source
+#        run: | 
+#          git clone https://github.com/raspberrypi/picoprobe.git && \
+#          cd picoprobe && \
+#          git submodule update --init && \
+#          mkdir build && \
+#          cd build && \
+#          export PICO_SDK_PATH=../../pico-sdk && \
+#          cmake .. && \
+#          make && \
+#          cd ..
+
       - name: Compile RP2040 source
         run: | 
-          git clone https://github.com/raspberrypi/picoprobe.git && \
-          cd picoprobe && \
-          git submodule update --init && \
+          cd src/pi-pico && \
           mkdir build && \
           cd build && \
-          export PICO_SDK_PATH=../../pico-sdk && \
+          export PICO_SDK_PATH=../../../pico-sdk && \
           cmake .. && \
           make && \
           cd ..
