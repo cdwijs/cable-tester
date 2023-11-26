@@ -1,3 +1,10 @@
+Problem: Manually testing is time consuming:
+Technique: unit testing
+Advantage: Is testing the code in many different scenarios
+
+Problem: debugging on the microcontroller is slow
+Technique: unit testing on PC
+
 Problem: The main loop hangs the simulation
 Technique: Refactor the main loop out of the way
 
