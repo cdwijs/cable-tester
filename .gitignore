@@ -77,3 +77,4 @@ src/workbench/build-*
 
 # pi pico build files
 src/pi-pico/build
+build/*

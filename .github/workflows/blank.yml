@@ -54,10 +54,9 @@ jobs:
 
       - name: Compile RP2040 source
         run: | 
-          cd src/pi-pico && \
-          mkdir build && \
+          mkdir -p build && \
           cd build && \
-          export PICO_SDK_PATH=../../../pico-sdk && \
+          export PICO_SDK_PATH=../pico-sdk && \
           cmake .. && \
           make && \
           cd ..
@@ -66,9 +65,8 @@ jobs:
       - name: Upload artifacts
         uses: actions/checkout@v3
         with:
-          name: picoprobe.uf2
-          path: picoprobe/build/picoprobe.uf2
-          content_type:
+          name: cable-tester.uf2
+          path: build/cable-tester/cable-tester.uf2 
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
