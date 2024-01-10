@@ -1,5 +1,6 @@
 add_executable(cable-tester
         cable-tester.c
+        sampler.c
         )
 
 # pull in common dependencies
