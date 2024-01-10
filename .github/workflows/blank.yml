@@ -63,10 +63,11 @@ jobs:
 
       #upload artifacts
       - name: Upload artifacts
-        uses: actions/checkout@v3
+        uses: actions/upload-artifact@v3
         with:
-          name: cable-tester.uf2
-          path: build/cable-tester/cable-tester.uf2 
+          name: full build directory
+          path: |
+            build/cable-tester/cable-tester.uf2
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
