@@ -33,4 +33,6 @@
 #include "pico/platform.h"
 #include "pico/error.h"
 
+//PICO_DEFAULT_LED_PIN is not defined, so include boards/pico.h
+#include "boards/pico.h"
 #endif

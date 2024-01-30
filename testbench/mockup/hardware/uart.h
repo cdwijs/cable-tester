@@ -84,7 +84,8 @@ typedef struct uart_inst uart_inst_t;
 /** @} */
 
 #if !defined(PICO_DEFAULT_UART_INSTANCE) && defined(PICO_DEFAULT_UART)
-#define PICO_DEFAULT_UART_INSTANCE (__CONCAT(uart,PICO_DEFAULT_UART))
+//#define PICO_DEFAULT_UART_INSTANCE (__CONCAT(uart,PICO_DEFAULT_UART))
+#define PICO_DEFAULT_UART_INSTANCE uart0 //__CONCAT does not work with the QT compiler
 #endif
 
 #ifdef PICO_DEFAULT_UART_INSTANCE

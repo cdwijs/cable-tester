@@ -9,7 +9,11 @@
 
 #include "sampler.h"
 
-int main() 
+#ifdef RUNNING_SIMULATED_ON_PC
+int picomain() //qt also defines a main() function
+#else
+int main()
+#endif
 {
     stdio_init_all(); //for serial communication via USB
     printf("Hello Timer!\n");

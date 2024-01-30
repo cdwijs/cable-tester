@@ -68,6 +68,11 @@
 
 #ifndef __ASSEMBLER__
 
+#ifndef __unused
+#define __unused        __attribute__((__unused__)) //for the qt compiler
+#endif
+
+
 #if defined __GNUC__
 #include <sys/cdefs.h>
 // note LLVM defines __GNUC__
