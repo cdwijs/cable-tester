@@ -17,7 +17,13 @@ SOURCES += \
     ../cable-tester/sampler.c \
     main.cpp \
     mainwindow.cpp \
+    mockup/hardware/gpio.c \
+    mockup/hardware/irq.c \
+    mockup/hardware/timer.c \
+    mockup/hardware/uart.c \
+    mockup/pico/stdio.c \
     mockup/pico/stdlib.c \
+    mockup/pico/time.c \
     unity/unity.c
 
 HEADERS += \

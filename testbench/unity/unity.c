@@ -68,6 +68,17 @@ static const char UNITY_PROGMEM UnityStrResultsIgnored[]         = " Ignored ";
 static const char UNITY_PROGMEM UnityStrDetail1Name[]            = UNITY_DETAIL1_NAME " ";
 static const char UNITY_PROGMEM UnityStrDetail2Name[]            = " " UNITY_DETAIL2_NAME " ";
 #endif
+
+
+void setUp(void) //prevent compile error, as the testcode doesn't implement this function
+{
+
+}
+void tearDown(void) //prevent compile error, as the testcode doesn't implement this function
+{
+
+}
+
 /*-----------------------------------------------
  * Pretty Printers & Test Result Output Handlers
  *-----------------------------------------------*/
