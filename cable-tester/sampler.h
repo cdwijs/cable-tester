@@ -19,7 +19,7 @@ digraph
 
 #include <stdint.h> //for uint8_t
 
-const uint8_t NUM_SCANNED_GPIOS = 23;
+#define  NUM_SCANNED_GPIOS 23
 
 typedef enum
 {
