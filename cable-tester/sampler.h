@@ -11,19 +11,20 @@ digraph
 
     rankdir="TD"
 
-    wait -> start [ label = "trigger" ];
-    start -> scan [ label = "" ];
-    scan -> wait  [ label = "done" ];
+    ST_SAMP_WAIT -> ST_SAMP_SCAN [ label = "trigger" ];
+    ST_SAMP_SCAN -> ST_SAMP_WAIT  [ label = "done" ];
 }
     \enddot
 */
 
 #include <stdint.h> //for uint8_t
 
+const uint8_t NUM_SCANNED_GPIOS = 23;
+
 typedef enum
 {
     ST_SAMP_WAIT = 0,
-
+    ST_SAMP_SCAN,
 }TSAMPLERSTATE;
 
 
@@ -37,6 +38,7 @@ typedef struct
     TSAMPLERSTATE           state;
     TSAMPLERFLAGS           flags;
     uint8_t                 index;
+    uint32_t                measurements[NUM_SCANNED_GPIOS];
 }TSAMPLER;
 
 void samplerExecute(void);
