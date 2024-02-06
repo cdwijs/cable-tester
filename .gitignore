@@ -79,3 +79,4 @@ src/workbench/build-*
 src/pi-pico/build
 build/*
 workbench/build-*
+documents/generated/*
