@@ -9,8 +9,6 @@ TSAMPLER* const mySampler = &mySamplerData;
 
 void samplerExecute(void)
 {
-
-
     switch(mySampler->state)
     {
         case ST_SAMP_WAIT:
@@ -43,7 +41,7 @@ void samplerExecute(void)
                 {
                     if (gpio_get(i))
                     {
-                        mySampler->measurements[mySampler->index] |= (2^i); //setbit
+                        mySampler->measurements[mySampler->index] |= (2^i); //setbit, todo: replace by 2d array
                     }
                     else
                     {
@@ -58,6 +56,6 @@ void samplerExecute(void)
             break;
         }
     }
-    gpio_put(LED_PIN, 1);
+    //gpio_put(LED_PIN, 1); //todo: segfaults on PC
     sleep_ms(100);
 }

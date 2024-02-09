@@ -38,7 +38,7 @@ typedef struct
     TSAMPLERSTATE           state;
     TSAMPLERFLAGS           flags;
     uint8_t                 index;
-    uint32_t                measurements[NUM_SCANNED_GPIOS];
+    uint32_t                measurements[NUM_SCANNED_GPIOS]; //todo: replace by 2d array
 }TSAMPLER;
 
 void samplerExecute(void);

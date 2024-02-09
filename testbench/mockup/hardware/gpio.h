@@ -694,7 +694,7 @@ static inline uint32_t gpio_get_all(void) {
  * \param mask Bitmask of GPIO values to set, as bits 0-29
  */
 static inline void gpio_set_mask(uint32_t mask) {
-    sio_hw->gpio_set = mask;
+    sio_hw->gpio_set = mask; //segfault
 }
 
 /*! \brief Drive low every GPIO appearing in mask

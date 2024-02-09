@@ -14,6 +14,7 @@ DEFINES += RUNNING_SIMULATED_ON_PC
 
 SOURCES += \
     ../cable-tester/cable-tester.c \
+    ../cable-tester/sampler-test.c \
     ../cable-tester/sampler.c \
     main.cpp \
     mainwindow.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
     unity/unity.c
 
 HEADERS += \
+    ../cable-tester/sampler-test.h \
     ../cable-tester/sampler.h \
     mainwindow.h \
     mockup/boards/pico.h \
