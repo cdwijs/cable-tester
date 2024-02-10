@@ -71,5 +71,13 @@ void setbit (uint8_t x,uint8_t y,uint8_t value)
 
 uint8_t getbit (uint8_t x,uint8_t y)
 {
-    return 0;//todo implement
+    if (x >= NUM_SCANNED_GPIOS || y >= NUM_SCANNED_GPIOS)
+    {
+        return 0;
+    }
+    if (mySampler->measurements[y] & (1 << x))
+    {
+        return 1;
+    }
+    return 0;
 }

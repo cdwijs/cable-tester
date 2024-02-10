@@ -103,5 +103,25 @@ void samplerTest(void)
         setbit(x,0,1);
     }
     TEST_ASSERT_EQUAL_INT(0x7FFFFF,mySampler->measurements[0]);
+
+//now test the getter as well
+
+    for (int y = 0; y < NUM_SCANNED_GPIOS; ++y)
+    {
+        for (int x = 0; x < NUM_SCANNED_GPIOS; ++x)
+        {
+            mySampler->measurements[y] = 0;
+            uint8_t stimulus = 1;
+            uint8_t result = 0;
+            setbit(x,y,stimulus);
+            result = getbit(x,y);
+            TEST_ASSERT_EQUAL_INT(stimulus,result);
+            stimulus = 0;
+            setbit(x,y,stimulus);
+            result = getbit(x,y);
+            TEST_ASSERT_EQUAL_INT(stimulus,result);
+        }
+    }
+
     samplerExecute(); //to be able to set a breakpoint there
 }
