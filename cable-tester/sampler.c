@@ -37,19 +37,12 @@ void samplerExecute(void)
             }
             else
             {
-                for (int i = 0; i < NUM_SCANNED_GPIOS; ++i)
+                for (int x = 0; x < NUM_SCANNED_GPIOS; ++x)
                 {
-                    if (gpio_get(i))
-                    {
-                        mySampler->measurements[mySampler->index] |= (2^i); //setbit, todo: replace by 2d array
-                    }
-                    else
-                    {
-                        mySampler->measurements[mySampler->index] &= ~(2^i); //clearbit
-                    }
+                    setbit(x,mySampler->index,gpio_get(x));
                 }
                 gpio_set_dir(mySampler->index,GPIO_IN);
-                mySampler->index++;
+                mySampler->index++; //goes 1 beyond the number of pins here
                 gpio_set_dir(mySampler->index,GPIO_OUT);
                 gpio_put(mySampler->index,1);
             }
@@ -58,4 +51,25 @@ void samplerExecute(void)
     }
     //gpio_put(LED_PIN, 1); //todo: segfaults on PC
     sleep_ms(100);
+}
+
+void setbit (uint8_t x,uint8_t y,uint8_t value)
+{
+    if (x >= NUM_SCANNED_GPIOS || y >= NUM_SCANNED_GPIOS)
+    {
+        return;
+    }
+    if (value)
+    {
+        mySampler->measurements[y] |= (1 << x);
+    }
+    else
+    {
+        mySampler->measurements[y] &= ~(1 << x);
+    }
+}
+
+uint8_t getbit (uint8_t x,uint8_t y)
+{
+    return 0;//todo implement
 }

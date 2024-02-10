@@ -42,5 +42,7 @@ typedef struct
 }TSAMPLER;
 
 void samplerExecute(void);
+void setbit (uint8_t x,uint8_t y,uint8_t value);
+uint8_t getbit (uint8_t x,uint8_t y);
 
 #endif //SAMPLER_H
