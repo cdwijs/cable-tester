@@ -18,8 +18,7 @@ digraph
 */
 
 #include <stdint.h> //for uint8_t
-
-#define  NUM_SCANNED_GPIOS 23
+#include <pico/stdlib.h> //pulls in gpio.h for NUM_SCANNED_GPIOS
 
 typedef enum
 {
@@ -38,7 +37,7 @@ typedef struct
     TSAMPLERSTATE           state;
     TSAMPLERFLAGS           flags;
     uint8_t                 index;
-    uint32_t                measurements[NUM_SCANNED_GPIOS]; //todo: replace by 2d array
+    uint32_t                measurements[NUM_SCANNED_GPIOS];
 }TSAMPLER;
 
 void samplerExecute(void);

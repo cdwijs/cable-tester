@@ -1,5 +1,5 @@
 #include "sampler.h"
-#include <pico/stdlib.h> //for gpio_put and sleep_ms
+
 const uint LED_PIN = PICO_DEFAULT_LED_PIN;
 
 

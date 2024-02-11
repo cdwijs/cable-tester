@@ -561,15 +561,53 @@ void gpio_init_mask(uint gpio_mask)
  * \param gpio GPIO number
  * \return Current state of the GPIO. 0 for low, non-zero for high
  */
-//todo: put a virtual wire here
-uint32_t gpio_input_reg = 0;
+uint32_t theFakeCable[NUM_SCANNED_GPIOS]; //todo: remove magic number
 bool gpio_get(uint gpio)
 {
-    if (gpio_input_reg & (1 << gpio))
-    {
-        return 1;
+    bool result = false;
+
+    if(gpio_dirout_reg & (1 << gpio))
+    { //direct output, pullup/downs don't matter
+        if ( gpio_output_reg & (1 << gpio))
+        {
+            result |= (1 << gpio);
+        }
+        else
+        {
+            result &= ~(1 << gpio);
+        }
     }
-    return false;
+    else
+    { //input, is the input connected to an output via a cable?
+        bool connected = false;
+        for (int i = 0; i < NUM_SCANNED_GPIOS; ++i)
+        {
+            if ( gpio_dirout_reg & (1 << i))
+            {
+                if ( gpio_output_reg & (1 << i))
+                {
+                    if (theFakeCable[i] & (1 << i))
+                    {
+                        connected |= (1 << gpio);
+                    }
+                }
+            }
+        }
+        if (!connected)
+        {
+            // apply the pull up/down
+            if ( gpio_pullup_reg & (1 << gpio))
+            {
+                result |= (1 << gpio);
+            }
+            if ( gpio_pulldown_reg & (1 << gpio))
+            {
+                result &= ~(1 << gpio);
+            }
+        }
+    }
+
+    return result;
 }
 
 /*! \brief Get raw value of all GPIOs

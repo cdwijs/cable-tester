@@ -7,8 +7,11 @@
 #ifndef _HARDWARE_GPIO_H
 #define _HARDWARE_GPIO_H
 #include <stdint.h> //for uint32_t
+
+#define  NUM_SCANNED_GPIOS 23
+
+extern uint32_t theFakeCable[NUM_SCANNED_GPIOS];
 extern uint32_t gpio_output_reg;
-extern uint32_t gpio_input_reg;
 extern uint32_t gpio_dirout_reg;
 extern uint32_t gpio_pullup_reg;
 extern uint32_t gpio_pulldown_reg;
