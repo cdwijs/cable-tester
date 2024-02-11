@@ -544,8 +544,14 @@ void gpio_init_mask(uint gpio_mask)
  * \param gpio GPIO number
  * \return Current state of the GPIO. 0 for low, non-zero for high
  */
+//todo: put a virtual wire here
+uint32_t gpio_input_reg = 0;
 bool gpio_get(uint gpio)
 {
+    if (gpio_input_reg & (1 << gpio))
+    {
+        return 1;
+    }
     return false;
 }
 
@@ -625,9 +631,17 @@ void gpio_put_all(uint32_t value)
  * \param gpio GPIO number
  * \param value If false clear the GPIO, otherwise set it.
  */
+uint32_t gpio_output_reg = 0;
 void gpio_put(uint gpio, bool value)
 {
-
+    if (value)
+    {
+        gpio_output_reg |= (1 << gpio);
+    }
+    else
+    {
+        gpio_output_reg &= ~(1 << gpio);
+    }
 }
 
 /*! \brief Determine whether a GPIO is currently driven high or low
@@ -709,9 +723,17 @@ void gpio_set_dir_all_bits(uint32_t values)
  * \param gpio GPIO number
  * \param out true for out, false for in
  */
+uint32_t gpio_dirout_reg = 0;
 void gpio_set_dir(uint gpio, bool out)
 {
-
+    if (out)
+    {
+        gpio_dirout_reg |= (1 << gpio);
+    }
+    else
+    {
+        gpio_dirout_reg &= ~(1 << gpio);
+    }
 }
 
 /*! \brief Check if a specific GPIO direction is OUT

@@ -6,6 +6,10 @@
 
 #ifndef _HARDWARE_GPIO_H
 #define _HARDWARE_GPIO_H
+#include <stdint.h> //for uint32_t
+extern uint32_t gpio_output_reg;
+extern uint32_t gpio_input_reg;
+extern uint32_t gpio_dirout_reg;
 
 #include "pico.h"
 #include "hardware/structs/sio.h"
