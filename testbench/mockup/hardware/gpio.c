@@ -37,9 +37,26 @@ enum gpio_function gpio_get_function(uint gpio)
  * \note On the RP2040, setting both pulls enables a "bus keep" function,
  * i.e. a weak pull to whatever is current high/low state of GPIO.
  */
+uint32_t gpio_pullup_reg = 0;
+uint32_t gpio_pulldown_reg = 0;
 void gpio_set_pulls(uint gpio, bool up, bool down)
 {
-
+    if (up)
+    {
+        gpio_pullup_reg |= (1 << gpio);
+    }
+    else
+    {
+        gpio_pullup_reg &= ~(1 << gpio);
+    }
+    if (down)
+    {
+        gpio_pulldown_reg |= (1 << gpio);
+    }
+    else
+    {
+        gpio_pulldown_reg &= ~(1 << gpio);
+    }
 }
 
 /*! \brief Set specified GPIO to be pulled up.

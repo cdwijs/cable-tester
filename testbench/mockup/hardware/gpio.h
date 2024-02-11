@@ -10,6 +10,8 @@
 extern uint32_t gpio_output_reg;
 extern uint32_t gpio_input_reg;
 extern uint32_t gpio_dirout_reg;
+extern uint32_t gpio_pullup_reg;
+extern uint32_t gpio_pulldown_reg;
 
 #include "pico.h"
 #include "hardware/structs/sio.h"
@@ -205,6 +207,7 @@ enum gpio_function gpio_get_function(uint gpio);
  * \note On the RP2040, setting both pulls enables a "bus keep" function,
  * i.e. a weak pull to whatever is current high/low state of GPIO.
  */
+
 void gpio_set_pulls(uint gpio, bool up, bool down);
 
 /*! \brief Set specified GPIO to be pulled up.
@@ -212,6 +215,7 @@ void gpio_set_pulls(uint gpio, bool up, bool down);
  *
  * \param gpio GPIO number
  */
+
 void gpio_pull_up(uint gpio);
 
 /*! \brief Determine if the specified GPIO is pulled up.

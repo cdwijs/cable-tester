@@ -19,6 +19,7 @@ void samplerExecute(void)
                 {
                     gpio_init(i);
                     gpio_set_dir(i,GPIO_IN);
+                    gpio_set_pulls(i,0,1);
                 }
                 mySampler->index = 0;
                 gpio_set_dir(mySampler->index,GPIO_OUT);
