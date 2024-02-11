@@ -1,5 +1,6 @@
 #include "sampler-test.h"
 #include "../unity/unity.h"
+#include "utils.h" //for FALSE and TRUE
 
 void samplerTest(void)
 {
@@ -123,5 +124,7 @@ void samplerTest(void)
         }
     }
 
-    samplerExecute(); //to be able to set a breakpoint there
+    //setup virtual connections here
+    mySampler->flags.trigger = TRUE;
+    samplerExecute();
 }

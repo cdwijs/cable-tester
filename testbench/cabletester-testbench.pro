@@ -30,6 +30,7 @@ SOURCES += \
 HEADERS += \
     ../cable-tester/sampler-test.h \
     ../cable-tester/sampler.h \
+    ../cable-tester/utils.h \
     mainwindow.h \
     mockup/boards/pico.h \
     mockup/hardware/address_mapped.h \

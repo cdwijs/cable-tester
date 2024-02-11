@@ -1,4 +1,10 @@
 #include "gpio.h"
+
+void check_gpio_param(__unused uint gpio)
+{
+
+}
+
 /*! \brief Select GPIO function
  *  \ingroup hardware_gpio
  *
@@ -32,6 +38,58 @@ enum gpio_function gpio_get_function(uint gpio)
  * i.e. a weak pull to whatever is current high/low state of GPIO.
  */
 void gpio_set_pulls(uint gpio, bool up, bool down)
+{
+
+}
+
+/*! \brief Set specified GPIO to be pulled up.
+ *  \ingroup hardware_gpio
+ *
+ * \param gpio GPIO number
+ */
+void gpio_pull_up(uint gpio)
+{
+
+}
+
+/*! \brief Determine if the specified GPIO is pulled up.
+ *  \ingroup hardware_gpio
+ *
+ * \param gpio GPIO number
+ * \return true if the GPIO is pulled up
+ */
+bool gpio_is_pulled_up(uint gpio)
+{
+    return false;
+}
+
+/*! \brief Set specified GPIO to be pulled down.
+ *  \ingroup hardware_gpio
+ *
+ * \param gpio GPIO number
+ */
+void gpio_pull_down(uint gpio)
+{
+
+}
+
+/*! \brief Determine if the specified GPIO is pulled down.
+ *  \ingroup hardware_gpio
+ *
+ * \param gpio GPIO number
+ * \return true if the GPIO is pulled down
+ */
+bool gpio_is_pulled_down(uint gpio)
+{
+    return false;
+}
+
+/*! \brief Disable pulls on specified GPIO
+ *  \ingroup hardware_gpio
+ *
+ * \param gpio GPIO number
+ */
+void gpio_disable_pulls(uint gpio)
 {
 
 }
@@ -270,6 +328,11 @@ void gpio_set_dormant_irq_enabled(uint gpio, uint32_t event_mask, bool enabled)
 
 }
 
+uint32_t gpio_get_irq_event_mask(uint gpio)
+{
+    return 0;
+}
+
 /*! \brief Acknowledge a GPIO interrupt for the specified events on the calling core
  *  \ingroup hardware_gpio
  *
@@ -325,6 +388,38 @@ void gpio_add_raw_irq_handler_with_order_priority_masked(uint gpio_mask, irq_han
 
 }
 
+/*! \brief Adds a raw GPIO IRQ handler for a specific GPIO on the current core
+ *  \ingroup hardware_gpio
+ *
+ * In addition to the default mechanism of a single GPIO IRQ event callback per core (see \ref gpio_set_irq_callback),
+ * it is possible to add explicit GPIO IRQ handlers which are called independent of the default callback. The order
+ * relative to the default callback can be controlled via the order_priority parameter(the default callback has the priority
+ * \ref GPIO_IRQ_CALLBACK_ORDER_PRIORITY which defaults to the lowest priority with the intention of it running last).
+ *
+ * This method adds such a callback, and disables the "default" callback for the specified GPIO.
+ *
+ * \note Multiple raw handlers should not be added for the same GPIO, and this method will assert if you attempt to.
+ *
+ * A raw handler should check for whichever GPIOs and events it handles, and acknowledge them itself; it might look something like:
+ *
+ * \code{.c}
+ * void my_irq_handler(void) {
+ *     if (gpio_get_irq_event_mask(my_gpio_num) & my_gpio_event_mask) {
+ *        gpio_acknowledge_irq(my_gpio_num, my_gpio_event_mask);
+ *       // handle the IRQ
+ *     }
+ * }
+ * \endcode
+ *
+ * @param gpio the GPIO number that will no longer be passed to the default callback for this core
+ * @param handler the handler to add to the list of GPIO IRQ handlers for this core
+ * @param order_priority the priority order to determine the relative position of the handler in the list of GPIO IRQ handlers for this core.
+ */
+void gpio_add_raw_irq_handler_with_order_priority(uint gpio, irq_handler_t handler, uint8_t order_priority)
+{
+
+}
+
 /*! \brief Adds a raw GPIO IRQ handler for the specified GPIOs on the current core
  *  \ingroup hardware_gpio
  *
@@ -354,6 +449,35 @@ void gpio_add_raw_irq_handler_with_order_priority_masked(uint gpio_mask, irq_han
  * @param handler the handler to add to the list of GPIO IRQ handlers for this core
  */
 void gpio_add_raw_irq_handler_masked(uint gpio_mask, irq_handler_t handler)
+{
+
+}
+
+/*! \brief Adds a raw GPIO IRQ handler for a specific GPIO on the current core
+ *  \ingroup hardware_gpio
+ *
+ * In addition to the default mechanism of a single GPIO IRQ event callback per core (see \ref gpio_set_irq_callback),
+ * it is possible to add explicit GPIO IRQ handlers which are called independent of the default event callback.
+ *
+ * This method adds such a callback, and disables the "default" callback for the specified GPIO.
+ *
+ * \note Multiple raw handlers should not be added for the same GPIO, and this method will assert if you attempt to.
+ *
+ * A raw handler should check for whichever GPIOs and events it handles, and acknowledge them itself; it might look something like:
+ *
+ * \code{.c}
+ * void my_irq_handler(void) {
+ *     if (gpio_get_irq_event_mask(my_gpio_num) & my_gpio_event_mask) {
+ *        gpio_acknowledge_irq(my_gpio_num, my_gpio_event_mask);
+ *       // handle the IRQ
+ *     }
+ * }
+ * \endcode
+ *
+ * @param gpio the GPIO number that will no longer be passed to the default callback for this core
+ * @param handler the handler to add to the list of GPIO IRQ handlers for this core
+ */
+void gpio_add_raw_irq_handler(uint gpio, irq_handler_t handler)
 {
 
 }
@@ -408,4 +532,206 @@ void gpio_deinit(uint gpio)
 void gpio_init_mask(uint gpio_mask)
 {
 
+}
+
+// ----------------------------------------------------------------------------
+// Input
+// ----------------------------------------------------------------------------
+
+/*! \brief Get state of a single specified GPIO
+ *  \ingroup hardware_gpio
+ *
+ * \param gpio GPIO number
+ * \return Current state of the GPIO. 0 for low, non-zero for high
+ */
+bool gpio_get(uint gpio)
+{
+    return false;
+}
+
+/*! \brief Get raw value of all GPIOs
+ *  \ingroup hardware_gpio
+ *
+ * \return Bitmask of raw GPIO values, as bits 0-29
+ */
+uint32_t gpio_get_all(void)
+{
+    return 0;
+}
+
+// ----------------------------------------------------------------------------
+// Output
+// ----------------------------------------------------------------------------
+
+/*! \brief Drive high every GPIO appearing in mask
+ *  \ingroup hardware_gpio
+ *
+ * \param mask Bitmask of GPIO values to set, as bits 0-29
+ */
+void gpio_set_mask(uint32_t mask)
+{
+
+}
+
+/*! \brief Drive low every GPIO appearing in mask
+ *  \ingroup hardware_gpio
+ *
+ * \param mask Bitmask of GPIO values to clear, as bits 0-29
+ */
+void gpio_clr_mask(uint32_t mask)
+{
+
+}
+
+/*! \brief Toggle every GPIO appearing in mask
+ *  \ingroup hardware_gpio
+ *
+ * \param mask Bitmask of GPIO values to toggle, as bits 0-29
+ */
+void gpio_xor_mask(uint32_t mask)
+{
+
+}
+
+/*! \brief Drive GPIO high/low depending on parameters
+ *  \ingroup hardware_gpio
+ *
+ * \param mask Bitmask of GPIO values to change, as bits 0-29
+ * \param value Value to set
+ *
+ * For each 1 bit in \p mask, drive that pin to the value given by
+ * corresponding bit in \p value, leaving other pins unchanged.
+ * Since this uses the TOGL alias, it is concurrency-safe with e.g. an IRQ
+ * bashing different pins from the same core.
+ */
+void gpio_put_masked(uint32_t mask, uint32_t value)
+{
+
+}
+
+/*! \brief Drive all pins simultaneously
+ *  \ingroup hardware_gpio
+ *
+ * \param value Bitmask of GPIO values to change, as bits 0-29
+ */
+void gpio_put_all(uint32_t value)
+{
+
+}
+
+/*! \brief Drive a single GPIO high/low
+ *  \ingroup hardware_gpio
+ *
+ * \param gpio GPIO number
+ * \param value If false clear the GPIO, otherwise set it.
+ */
+void gpio_put(uint gpio, bool value)
+{
+
+}
+
+/*! \brief Determine whether a GPIO is currently driven high or low
+ *  \ingroup hardware_gpio
+ *
+ * This function returns the high/low output level most recently assigned to a
+ * GPIO via gpio_put() or similar. This is the value that is presented outward
+ * to the IO muxing, *not* the input level back from the pad (which can be
+ * read using gpio_get()).
+ *
+ * To avoid races, this function must not be used for read-modify-write
+ * sequences when driving GPIOs -- instead functions like gpio_put() should be
+ * used to atomically update GPIOs. This accessor is intended for debug use
+ * only.
+ *
+ * \param gpio GPIO number
+ * \return true if the GPIO output level is high, false if low.
+ */
+bool gpio_get_out_level(uint gpio)
+{
+    return false;
+}
+
+// ----------------------------------------------------------------------------
+// Direction
+// ----------------------------------------------------------------------------
+
+/*! \brief Set a number of GPIOs to output
+ *  \ingroup hardware_gpio
+ *
+ * Switch all GPIOs in "mask" to output
+ *
+ * \param mask Bitmask of GPIO to set to output, as bits 0-29
+ */
+void gpio_set_dir_out_masked(uint32_t mask)
+{
+
+}
+
+/*! \brief Set a number of GPIOs to input
+ *  \ingroup hardware_gpio
+ *
+ * \param mask Bitmask of GPIO to set to input, as bits 0-29
+ */
+void gpio_set_dir_in_masked(uint32_t mask)
+{
+
+}
+
+/*! \brief Set multiple GPIO directions
+ *  \ingroup hardware_gpio
+ *
+ * \param mask Bitmask of GPIO to set to input, as bits 0-29
+ * \param value Values to set
+ *
+ * For each 1 bit in "mask", switch that pin to the direction given by
+ * corresponding bit in "value", leaving other pins unchanged.
+ * E.g. gpio_set_dir_masked(0x3, 0x2); -> set pin 0 to input, pin 1 to output,
+ * simultaneously.
+ */
+void gpio_set_dir_masked(uint32_t mask, uint32_t value)
+{
+
+}
+
+/*! \brief Set direction of all pins simultaneously.
+ *  \ingroup hardware_gpio
+ *
+ * \param values individual settings for each gpio; for GPIO N, bit N is 1 for out, 0 for in
+ */
+void gpio_set_dir_all_bits(uint32_t values)
+{
+
+}
+
+/*! \brief Set a single GPIO direction
+ *  \ingroup hardware_gpio
+ *
+ * \param gpio GPIO number
+ * \param out true for out, false for in
+ */
+void gpio_set_dir(uint gpio, bool out)
+{
+
+}
+
+/*! \brief Check if a specific GPIO direction is OUT
+ *  \ingroup hardware_gpio
+ *
+ * \param gpio GPIO number
+ * \return true if the direction for the pin is OUT
+ */
+bool gpio_is_dir_out(uint gpio)
+{
+    return true;
+}
+
+/*! \brief Get a specific GPIO direction
+ *  \ingroup hardware_gpio
+ *
+ * \param gpio GPIO number
+ * \return 1 for out, 0 for in
+ */
+uint gpio_get_dir(uint gpio)
+{
+    return 0;
 }

@@ -80,3 +80,4 @@ src/pi-pico/build
 build/*
 workbench/build-*
 documents/generated/*
+build-cabletester-testbench-Desktop-Debug/*

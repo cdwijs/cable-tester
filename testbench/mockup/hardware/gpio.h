@@ -168,9 +168,7 @@ enum gpio_drive_strength {
     GPIO_DRIVE_STRENGTH_12MA = 3 ///< 12 mA nominal drive strength
 };
 
-static inline void check_gpio_param(__unused uint gpio) {
-    invalid_params_if(GPIO, gpio >= NUM_BANK0_GPIOS);
-}
+void check_gpio_param(__unused uint gpio);
 
 // ----------------------------------------------------------------------------
 // Pad Controls + IO Muxing
@@ -210,9 +208,7 @@ void gpio_set_pulls(uint gpio, bool up, bool down);
  *
  * \param gpio GPIO number
  */
-static inline void gpio_pull_up(uint gpio) {
-    gpio_set_pulls(gpio, true, false);
-}
+void gpio_pull_up(uint gpio);
 
 /*! \brief Determine if the specified GPIO is pulled up.
  *  \ingroup hardware_gpio
@@ -220,18 +216,14 @@ static inline void gpio_pull_up(uint gpio) {
  * \param gpio GPIO number
  * \return true if the GPIO is pulled up
  */
-static inline bool gpio_is_pulled_up(uint gpio) {
-    return (padsbank0_hw->io[gpio] & PADS_BANK0_GPIO0_PUE_BITS) != 0;
-}
+bool gpio_is_pulled_up(uint gpio);
 
 /*! \brief Set specified GPIO to be pulled down.
  *  \ingroup hardware_gpio
  *
  * \param gpio GPIO number
  */
-static inline void gpio_pull_down(uint gpio) {
-    gpio_set_pulls(gpio, false, true);
-}
+void gpio_pull_down(uint gpio);
 
 /*! \brief Determine if the specified GPIO is pulled down.
  *  \ingroup hardware_gpio
@@ -239,18 +231,14 @@ static inline void gpio_pull_down(uint gpio) {
  * \param gpio GPIO number
  * \return true if the GPIO is pulled down
  */
-static inline bool gpio_is_pulled_down(uint gpio) {
-    return (padsbank0_hw->io[gpio] & PADS_BANK0_GPIO0_PDE_BITS) != 0;
-}
+bool gpio_is_pulled_down(uint gpio);
 
 /*! \brief Disable pulls on specified GPIO
  *  \ingroup hardware_gpio
  *
  * \param gpio GPIO number
  */
-static inline void gpio_disable_pulls(uint gpio) {
-    gpio_set_pulls(gpio, false, false);
-}
+void gpio_disable_pulls(uint gpio);
 
 /*! \brief Set GPIO IRQ override
  *  \ingroup hardware_gpio
@@ -458,13 +446,7 @@ void gpio_set_dormant_irq_enabled(uint gpio, uint32_t event_mask, bool enabled);
  * \return Bitmask of events that are currently pending for the GPIO. See \ref gpio_irq_level for details.
  * \sa gpio_acknowledge_irq
  */
-static inline uint32_t gpio_get_irq_event_mask(uint gpio) {
-    check_gpio_param(gpio);
-    io_irq_ctrl_hw_t *irq_ctrl_base = get_core_num() ?
-                                      &iobank0_hw->proc1_irq_ctrl : &iobank0_hw->proc0_irq_ctrl;
-    io_ro_32 *status_reg = &irq_ctrl_base->ints[gpio >> 3u];
-    return (*status_reg >> (4 * (gpio & 7u))) & 0xfu;
-}
+uint32_t gpio_get_irq_event_mask(uint gpio);
 
 /*! \brief Acknowledge a GPIO interrupt for the specified events on the calling core
  *  \ingroup hardware_gpio
@@ -542,10 +524,7 @@ void gpio_add_raw_irq_handler_with_order_priority_masked(uint gpio_mask, irq_han
  * @param handler the handler to add to the list of GPIO IRQ handlers for this core
  * @param order_priority the priority order to determine the relative position of the handler in the list of GPIO IRQ handlers for this core.
  */
-static inline void gpio_add_raw_irq_handler_with_order_priority(uint gpio, irq_handler_t handler, uint8_t order_priority) {
-    check_gpio_param(gpio);
-    gpio_add_raw_irq_handler_with_order_priority_masked(1u << gpio, handler, order_priority);
-}
+void gpio_add_raw_irq_handler_with_order_priority(uint gpio, irq_handler_t handler, uint8_t order_priority);
 
 /*! \brief Adds a raw GPIO IRQ handler for the specified GPIOs on the current core
  *  \ingroup hardware_gpio
@@ -601,10 +580,7 @@ void gpio_add_raw_irq_handler_masked(uint gpio_mask, irq_handler_t handler);
  * @param gpio the GPIO number that will no longer be passed to the default callback for this core
  * @param handler the handler to add to the list of GPIO IRQ handlers for this core
  */
-static inline void gpio_add_raw_irq_handler(uint gpio, irq_handler_t handler) {
-    check_gpio_param(gpio);
-    gpio_add_raw_irq_handler_masked(1u << gpio, handler);
-}
+void gpio_add_raw_irq_handler(uint gpio, irq_handler_t handler);
 
 /*! \brief Removes a raw GPIO IRQ handler for the specified GPIOs on the current core
  *  \ingroup hardware_gpio
@@ -630,10 +606,7 @@ void gpio_remove_raw_irq_handler_masked(uint gpio_mask, irq_handler_t handler);
  * @param gpio the GPIO number that will now be passed to the default callback for this core
  * @param handler the handler to remove from the list of GPIO IRQ handlers for this core
  */
-static inline void gpio_remove_raw_irq_handler(uint gpio, irq_handler_t handler) {
-    check_gpio_param(gpio);
-    gpio_remove_raw_irq_handler_masked(1u << gpio, handler);
-}
+void gpio_remove_raw_irq_handler(uint gpio, irq_handler_t handler);
 
 /*! \brief Initialise a GPIO for (enabled I/O and set func to GPIO_FUNC_SIO)
  *  \ingroup hardware_gpio
@@ -671,18 +644,14 @@ void gpio_init_mask(uint gpio_mask);
  * \param gpio GPIO number
  * \return Current state of the GPIO. 0 for low, non-zero for high
  */
-static inline bool gpio_get(uint gpio) {
-    return !!((1ul << gpio) & sio_hw->gpio_in);
-}
+bool gpio_get(uint gpio);
 
 /*! \brief Get raw value of all GPIOs
  *  \ingroup hardware_gpio
  *
  * \return Bitmask of raw GPIO values, as bits 0-29
  */
-static inline uint32_t gpio_get_all(void) {
-    return sio_hw->gpio_in;
-}
+uint32_t gpio_get_all(void);
 
 // ----------------------------------------------------------------------------
 // Output
@@ -693,27 +662,21 @@ static inline uint32_t gpio_get_all(void) {
  *
  * \param mask Bitmask of GPIO values to set, as bits 0-29
  */
-static inline void gpio_set_mask(uint32_t mask) {
-    sio_hw->gpio_set = mask; //segfault
-}
+void gpio_set_mask(uint32_t mask);
 
 /*! \brief Drive low every GPIO appearing in mask
  *  \ingroup hardware_gpio
  *
  * \param mask Bitmask of GPIO values to clear, as bits 0-29
  */
-static inline void gpio_clr_mask(uint32_t mask) {
-    sio_hw->gpio_clr = mask;
-}
+void gpio_clr_mask(uint32_t mask);
 
 /*! \brief Toggle every GPIO appearing in mask
  *  \ingroup hardware_gpio
  *
  * \param mask Bitmask of GPIO values to toggle, as bits 0-29
  */
-static inline void gpio_xor_mask(uint32_t mask) {
-    sio_hw->gpio_togl = mask;
-}
+void gpio_xor_mask(uint32_t mask);
 
 /*! \brief Drive GPIO high/low depending on parameters
  *  \ingroup hardware_gpio
@@ -726,18 +689,14 @@ static inline void gpio_xor_mask(uint32_t mask) {
  * Since this uses the TOGL alias, it is concurrency-safe with e.g. an IRQ
  * bashing different pins from the same core.
  */
-static inline void gpio_put_masked(uint32_t mask, uint32_t value) {
-    sio_hw->gpio_togl = (sio_hw->gpio_out ^ value) & mask;
-}
+void gpio_put_masked(uint32_t mask, uint32_t value);
 
 /*! \brief Drive all pins simultaneously
  *  \ingroup hardware_gpio
  *
  * \param value Bitmask of GPIO values to change, as bits 0-29
  */
-static inline void gpio_put_all(uint32_t value) {
-    sio_hw->gpio_out = value;
-}
+void gpio_put_all(uint32_t value);
 
 /*! \brief Drive a single GPIO high/low
  *  \ingroup hardware_gpio
@@ -745,13 +704,7 @@ static inline void gpio_put_all(uint32_t value) {
  * \param gpio GPIO number
  * \param value If false clear the GPIO, otherwise set it.
  */
-static inline void gpio_put(uint gpio, bool value) {
-    uint32_t mask = 1ul << gpio;
-    if (value)
-        gpio_set_mask(mask);
-    else
-        gpio_clr_mask(mask);
-}
+void gpio_put(uint gpio, bool value);
 
 /*! \brief Determine whether a GPIO is currently driven high or low
  *  \ingroup hardware_gpio
@@ -769,9 +722,7 @@ static inline void gpio_put(uint gpio, bool value) {
  * \param gpio GPIO number
  * \return true if the GPIO output level is high, false if low.
  */
-static inline bool gpio_get_out_level(uint gpio) {
-    return !!(sio_hw->gpio_out & (1u << gpio));
-}
+bool gpio_get_out_level(uint gpio);
 
 // ----------------------------------------------------------------------------
 // Direction
@@ -784,18 +735,14 @@ static inline bool gpio_get_out_level(uint gpio) {
  *
  * \param mask Bitmask of GPIO to set to output, as bits 0-29
  */
-static inline void gpio_set_dir_out_masked(uint32_t mask) {
-    sio_hw->gpio_oe_set = mask;
-}
+void gpio_set_dir_out_masked(uint32_t mask);
 
 /*! \brief Set a number of GPIOs to input
  *  \ingroup hardware_gpio
  *
  * \param mask Bitmask of GPIO to set to input, as bits 0-29
  */
-static inline void gpio_set_dir_in_masked(uint32_t mask) {
-    sio_hw->gpio_oe_clr = mask;
-}
+void gpio_set_dir_in_masked(uint32_t mask);
 
 /*! \brief Set multiple GPIO directions
  *  \ingroup hardware_gpio
@@ -808,18 +755,14 @@ static inline void gpio_set_dir_in_masked(uint32_t mask) {
  * E.g. gpio_set_dir_masked(0x3, 0x2); -> set pin 0 to input, pin 1 to output,
  * simultaneously.
  */
-static inline void gpio_set_dir_masked(uint32_t mask, uint32_t value) {
-    sio_hw->gpio_oe_togl = (sio_hw->gpio_oe ^ value) & mask;
-}
+void gpio_set_dir_masked(uint32_t mask, uint32_t value);
 
 /*! \brief Set direction of all pins simultaneously.
  *  \ingroup hardware_gpio
  *
  * \param values individual settings for each gpio; for GPIO N, bit N is 1 for out, 0 for in
  */
-static inline void gpio_set_dir_all_bits(uint32_t values) {
-    sio_hw->gpio_oe = values;
-}
+void gpio_set_dir_all_bits(uint32_t values);
 
 /*! \brief Set a single GPIO direction
  *  \ingroup hardware_gpio
@@ -827,13 +770,7 @@ static inline void gpio_set_dir_all_bits(uint32_t values) {
  * \param gpio GPIO number
  * \param out true for out, false for in
  */
-static inline void gpio_set_dir(uint gpio, bool out) {
-    uint32_t mask = 1ul << gpio;
-    if (out)
-        gpio_set_dir_out_masked(mask);
-    else
-        gpio_set_dir_in_masked(mask);
-}
+void gpio_set_dir(uint gpio, bool out);
 
 /*! \brief Check if a specific GPIO direction is OUT
  *  \ingroup hardware_gpio
@@ -841,9 +778,7 @@ static inline void gpio_set_dir(uint gpio, bool out) {
  * \param gpio GPIO number
  * \return true if the direction for the pin is OUT
  */
-static inline bool gpio_is_dir_out(uint gpio) {
-    return !!(sio_hw->gpio_oe & (1u << (gpio)));
-}
+bool gpio_is_dir_out(uint gpio);
 
 /*! \brief Get a specific GPIO direction
  *  \ingroup hardware_gpio
@@ -851,9 +786,7 @@ static inline bool gpio_is_dir_out(uint gpio) {
  * \param gpio GPIO number
  * \return 1 for out, 0 for in
  */
-static inline uint gpio_get_dir(uint gpio) {
-    return gpio_is_dir_out(gpio); // note GPIO_OUT is 1/true and GPIO_IN is 0/false anyway
-}
+uint gpio_get_dir(uint gpio);
 
 extern void gpio_debug_pins_init(void);
 
@@ -882,7 +815,7 @@ extern void gpio_debug_pins_init(void);
     enum DEBUG_PIN_TYPE { _none = 0, p }; \
     template <enum DEBUG_PIN_TYPE> class __debug_pin_settings { \
         public: \
-            static inline bool enabled() { return false; } \
+            bool enabled() { return false; } \
     };
 #define CU_SELECT_DEBUG_PINS(x) template<> inline bool __debug_pin_settings<x>::enabled() { return true; };
 #define DEBUG_PINS_ENABLED(p) (__debug_pin_settings<p>::enabled())

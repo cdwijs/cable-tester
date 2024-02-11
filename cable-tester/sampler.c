@@ -49,7 +49,7 @@ void samplerExecute(void)
             break;
         }
     }
-    //gpio_put(LED_PIN, 1); //todo: segfaults on PC
+    gpio_put(LED_PIN, 1);
     sleep_ms(100);
 }
 
