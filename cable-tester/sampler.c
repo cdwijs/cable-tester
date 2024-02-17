@@ -42,6 +42,7 @@ void samplerExecute(void)
                 {
                     setbit(x,mySampler->index,gpio_get(x));
                 }
+                gpio_put(mySampler->index,0);
                 gpio_set_dir(mySampler->index,GPIO_IN);
                 mySampler->index++; //goes 1 beyond the number of pins here
                 gpio_set_dir(mySampler->index,GPIO_OUT);
@@ -50,8 +51,8 @@ void samplerExecute(void)
             break;
         }
     }
-    gpio_put(LED_PIN, 1);
-    sleep_ms(100);
+    //gpio_put(LED_PIN, 1);
+    //sleep_ms(100);
 }
 
 void setbit (uint8_t x,uint8_t y,uint8_t value)

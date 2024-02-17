@@ -65,6 +65,7 @@ https://mcuoneclipse.com/2022/09/17/picoprobe-using-the-raspberry-pi-pico-as-deb
 https://mcuoneclipse.com/2023/04/08/open-source-picolink-raspberry-pi-rp2040-cmsis-dap-debug-probe/
 OpenOCD has Raspberry Pi Pico RP2040 support in the Flash Layer as of 0.12.0
 https://github.com/berrak/eclipse-ide-debug-pico-howto
+https://www.digikey.nl/en/maker/projects/raspberry-pi-pico-and-rp2040-cc-part-2-debugging-with-vs-code/470abc7efb07432b82c95f6f67f184c0
 
 https://github.com/raspberrypi/picoprobe
 

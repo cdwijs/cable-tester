@@ -5,6 +5,7 @@ extern "C"
 {
     #include "../unity/unity.h"
     #include "../../cable-tester/sampler-test.h"
+    #include "../mockup/hardware/gpio-test.h"
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -15,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     UNITY_BEGIN();
     RUN_TEST(samplerTest);
+    RUN_TEST(gpioTest);
     int unityresult = UNITY_END();
 }
 

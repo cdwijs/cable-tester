@@ -578,17 +578,22 @@ bool gpio_get(uint gpio)
         }
     }
     else
-    { //input, is the input connected to an output via a cable?
+    {
         bool connected = false;
         for (int i = 0; i < NUM_SCANNED_GPIOS; ++i)
         {
-            if ( gpio_dirout_reg & (1 << i))
+            if (theFakeCable[i] & (1 << gpio))
             {
-                if ( gpio_output_reg & (1 << i))
+                connected = true;
+                if(gpio_dirout_reg & (1 << i))
                 {
-                    if (theFakeCable[i] & (1 << i))
+                    if ( gpio_output_reg & (1 << i))
                     {
-                        connected |= (1 << gpio);
+                        result |= (1 << gpio);
+                    }
+                    else
+                    {
+                        result &= ~(1 << gpio);
                     }
                 }
             }

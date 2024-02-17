@@ -18,6 +18,7 @@ SOURCES += \
     ../cable-tester/sampler.c \
     main.cpp \
     mainwindow.cpp \
+    mockup/hardware/gpio-test.c \
     mockup/hardware/gpio.c \
     mockup/hardware/irq.c \
     mockup/hardware/timer.c \
@@ -34,6 +35,7 @@ HEADERS += \
     mainwindow.h \
     mockup/boards/pico.h \
     mockup/hardware/address_mapped.h \
+    mockup/hardware/gpio-test.h \
     mockup/hardware/gpio.h \
     mockup/hardware/irq.h \
     mockup/hardware/platform_defs.h \

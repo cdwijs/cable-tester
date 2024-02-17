@@ -136,15 +136,15 @@ void samplerTest(void)
         theFakeCable[i] = 1 << i;
     }
 
-    theFakeCable[0] = 1 << 5;
-    theFakeCable[1] = 1 << 2;
-    theFakeCable[2] = 1 << 9;
-    theFakeCable[3] = 1 << 12;
-    theFakeCable[4] = 1 << 7;
-    theFakeCable[5] = 1 << 1;
-    theFakeCable[6] = 1 << 3;
-    theFakeCable[7] = 1 << 4;
-    theFakeCable[8] = 1 << 10;
+    theFakeCable[0] |= 1 << 5;
+    theFakeCable[1] |= 1 << 2;
+    theFakeCable[2] |= 1 << 9;
+    theFakeCable[3] |= 1 << 12;
+    theFakeCable[4] |= 1 << 7;
+    theFakeCable[5] |= 1 << 1;
+    theFakeCable[6] |= 1 << 3;
+    theFakeCable[7] |= 1 << 4;
+    theFakeCable[8] |= 1 << 10;
 
     mySampler->flags.trigger = TRUE;
     for (int cyle = 0; cyle < NUM_SCANNED_GPIOS*2; ++cyle)
@@ -154,39 +154,3 @@ void samplerTest(void)
     //now it should be ready for the next scan cycle
     //now fakecable should be the same as the measured cable
 }
-
-/*
-uint32_t samplerSimulatePins(void)
-{
-    uint32_t result = 0;
-    for (int x = 0; x < NUM_SCANNED_GPIOS; ++x)
-    {
-        if(gpio_dirout_reg & (1 << x))
-        { //direct output, pullup/downs don't matter
-            if ( gpio_output_reg & (1 << x))
-            {
-                result |= (1 << x);
-            }
-            else
-            {
-                result &= ~(1 << x);
-            }
-        }
-        else
-        { //input, first apply the pull up/down
-            if ( gpio_pullup_reg & (1 << x))
-            {
-                result |= (1 << x);
-            }
-            if ( gpio_pulldown_reg & (1 << x))
-            {
-                result &= ~(1 << x);
-            }
-
-            //now apply the virtual cable here
-            if ()
-                }
-
-    }
-    return result;
-}*/
