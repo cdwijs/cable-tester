@@ -1,16 +1,21 @@
 /**
- * Copyright (c) 2023 Cdwijs
+ * Copyright (c) 2023-2024 Cdwijs
  *
  * SPDX-License-Identifier: GPL2+/LGPL2+
  */
-
+#include "cable-tester.h"
 #include <stdio.h> //for serial communication via USB
 #include <pico/stdlib.h>
-
 #include "sampler.h"
 
+#define TRUE 1 //todo: put in truefalse.h
+#define FALSE 0
+
+TMAIN myMainData;
+TMAIN* const myMain = &myMainData;
+
 #ifdef RUNNING_SIMULATED_ON_PC
-int picomain() //qt also defines a main() function
+int picomain(void) //qt also defines a main() function
 #else
 int main()
 #endif
@@ -22,8 +27,49 @@ int main()
     gpio_set_dir(LED_PIN, GPIO_OUT);
     while (true) 
     {
-        samplerExecute();
+        mainLoop();
         gpio_put(LED_PIN, 0);
         sleep_ms(400);
     }
+}
+
+void mainLoop(void) //to be able to test one cycle of the main program
+{
+    switch (myMain->state)
+    {
+        case ST_MAIN_INIT:
+        {
+            myMain->state = ST_MAIN_ON;
+            break;
+        }
+        case ST_MAIN_ON:
+        {
+            //if (samplerCableChanged())
+            if (TRUE)
+            {
+                //timerSet(TMR_ONOFF,TIME_5_MINUTE);
+            }
+            //if (timerElapsed(TMR_ONOFF))
+            if (FALSE)
+            {
+                myMain->state = ST_MAIN_OFF;
+            }
+            //if (buttonIsPressed())
+            if (TRUE)
+            {
+
+            }
+            break;
+        }
+        case ST_MAIN_OFF:
+        {
+            //if (buttonIsPressed())
+            if (TRUE)
+            {
+                myMain->state = ST_MAIN_ON;
+            }
+            break;
+        }
+    }
+    samplerExecute();
 }

@@ -1,5 +1,12 @@
+/**
+ * Copyright (c) 2023-2024 Cdwijs
+ *
+ * SPDX-License-Identifier: GPL2+/LGPL2+
+ */
 #include "sampler.h"
 
+#define TRUE 1 //todo: put in truefalse.h
+#define FALSE 0
 const uint LED_PIN = PICO_DEFAULT_LED_PIN;
 
 
@@ -33,6 +40,12 @@ void samplerExecute(void)
             //sample the inputs here
             if (mySampler->index >= NUM_SCANNED_GPIOS)
             {
+                if (mySampler->flags.storereference)
+                {
+                    mySampler->flags.storereference = FALSE;
+                    
+                }
+                
                 //do something cool with the measurements
                 mySampler->state = ST_SAMP_WAIT;
             }
@@ -82,4 +95,9 @@ uint8_t getbit (uint8_t x,uint8_t y)
         return 1;
     }
     return 0;
+}
+
+void samplerStoreAsReference (void)
+{
+    mySampler->flags.storereference = TRUE;
 }

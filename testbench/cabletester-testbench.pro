@@ -13,6 +13,7 @@ INCLUDEPATH += mockup #so the compiler finds something that looks like the pi pi
 DEFINES += RUNNING_SIMULATED_ON_PC
 
 SOURCES += \
+    ../cable-tester/cable-tester-test.c \
     ../cable-tester/cable-tester.c \
     ../cable-tester/sampler-test.c \
     ../cable-tester/sampler.c \
@@ -29,6 +30,8 @@ SOURCES += \
     unity/unity.c
 
 HEADERS += \
+    ../cable-tester/cable-tester-test.h \
+    ../cable-tester/cable-tester.h \
     ../cable-tester/sampler-test.h \
     ../cable-tester/sampler.h \
     ../cable-tester/utils.h \

@@ -30,6 +30,7 @@ typedef enum
 typedef struct
 {
     uint8_t trigger: 1;
+    uint8_t storereference: 1;
 }TSAMPLERFLAGS;
 
 typedef struct
