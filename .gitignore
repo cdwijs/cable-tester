@@ -81,3 +81,4 @@ build/*
 workbench/build-*
 documents/generated/*
 build-cabletester-testbench-Desktop-Debug/*
+build-cabletester-testbench-Desktop_Qt_*

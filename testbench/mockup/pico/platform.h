@@ -309,14 +309,14 @@ extern "C" {
  *
  *  For example my_function here will always be inlined:
  *
- *      int __force_inline my_function(int x) {
+ *      int my_function(int x) {
  *
  */
 
 #if PICO_C_COMPILER_IS_GNU && (__GNUC__ <= 6 || (__GNUC__ == 7 && (__GNUC_MINOR__ < 3 || !defined(__cplusplus))))
-#define __force_inline inline __always_inline
+#define inline __always_inline
 #else
-#define __force_inline __always_inline
+#define __always_inline
 #endif
 
 /*! \brief Macro to determine the number of elements in an array
@@ -347,7 +347,7 @@ extern "C" {
  *  \ingroup pico_platform
  */
 static inline void __breakpoint(void) {
-    pico_default_asm ("bkpt #0");
+    //pico_default_asm ("bkpt #0");
 }
 
 /*! \brief Ensure that the compiler does not move memory access across this method call
@@ -362,8 +362,8 @@ static inline void __breakpoint(void) {
  * The compiler will not move the load from `some_other_memory_location` above the memory barrier (which it otherwise
  * might - even above the memory store!)
  */
-__force_inline static void __compiler_memory_barrier(void) {
-    pico_default_asm_volatile ("" : : : "memory");
+static void __compiler_memory_barrier(void) {
+    //pico_default_asm_volatile ("" : : : "memory");
 }
 
 /*! \brief Macro for converting memory addresses to 32 bit addresses suitable for DMA
@@ -436,7 +436,7 @@ GCC_Pragma("GCC diagnostic pop")
  * makes it much easier to find tight loops, but also in the future \#ifdef-ed support for lockup
  * debugging might be added
  */
-static __force_inline void tight_loop_contents(void) {}
+static void tight_loop_contents(void) {}
 
 /*! \brief Multiply two integers using an assembly `MUL` instruction
  *  \ingroup pico_platform
@@ -448,9 +448,10 @@ static __force_inline void tight_loop_contents(void) {}
  * \param b the second operand
  * \return a * b
  */
-__force_inline static int32_t __mul_instruction(int32_t a, int32_t b) {
-    pico_default_asm ("muls %0, %1" : "+l" (a) : "l" (b) : );
-    return a;
+static int32_t __mul_instruction(int32_t a, int32_t b) {
+    //pico_default_asm ("muls %0, %1" : "+l" (a) : "l" (b) : );
+    //return a;
+    return a*b;
 }
 
 /*! \brief multiply two integer values using the fastest method possible
@@ -483,9 +484,9 @@ __force_inline static int32_t __mul_instruction(int32_t a, int32_t b) {
  *
  * \return the exception number if the CPU is handling an exception, or 0 otherwise
  */
-static __force_inline uint __get_current_exception(void) {
+static uint __get_current_exception(void) {
     uint exception;
-    pico_default_asm( "mrs %0, ipsr" : "=l" (exception));
+    //pico_default_asm( "mrs %0, ipsr" : "=l" (exception));
     return exception;
 }
 
@@ -507,11 +508,11 @@ static __force_inline uint __get_current_exception(void) {
  * \param minimum_cycles the minimum number of system clock cycles to delay for
  */
 static inline void busy_wait_at_least_cycles(uint32_t minimum_cycles) {
-    pico_default_asm_volatile(
-        "1: subs %0, #3\n"
-        "bcs 1b\n"
-        : "+l" (minimum_cycles) : : "memory"
-    );
+    //pico_default_asm_volatile(
+    //    "1: subs %0, #3\n"
+    //    "bcs 1b\n"
+    //    : "+l" (minimum_cycles) : : "memory"
+    //);
 }
 
 /*! \brief Get the current core number
@@ -519,7 +520,7 @@ static inline void busy_wait_at_least_cycles(uint32_t minimum_cycles) {
  *
  * \return The core number the call was made from
  */
-__force_inline static uint get_core_num(void) {
+static uint get_core_num(void) {
     return (*(uint32_t *) (SIO_BASE + SIO_CPUID_OFFSET));
 }
 

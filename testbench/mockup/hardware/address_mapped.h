@@ -83,14 +83,14 @@ typedef ioptr const const_ioptr;
 // Helper method used by hw_alias macros to optionally check input validity
 #define hw_alias_check_addr(addr) ((uintptr_t)(addr))
 // can't use the following impl as it breaks existing static declarations using hw_alias, so would be a backwards incompatibility
-//static __force_inline uint32_t hw_alias_check_addr(volatile void *addr) {
+//static uint32_t hw_alias_check_addr(volatile void *addr) {
 //    uint32_t rc = (uintptr_t)addr;
 //    invalid_params_if(ADDRESS_ALIAS, rc < 0x40000000); // catch likely non HW pointer types
 //    return rc;
 //}
 
 // Helper method used by xip_alias macros to optionally check input validity
-__force_inline static uint32_t xip_alias_check_addr(const void *addr) {
+static uint32_t xip_alias_check_addr(const void *addr) {
     uint32_t rc = (uintptr_t)addr;
     valid_params_if(ADDRESS_ALIAS, rc >= XIP_MAIN_BASE && rc < XIP_NOALLOC_BASE);
     return rc;
@@ -118,7 +118,7 @@ __force_inline static uint32_t xip_alias_check_addr(const void *addr) {
  * \param addr Address of writable register
  * \param mask Bit-mask specifying bits to set
  */
-__force_inline static void hw_set_bits(io_rw_32 *addr, uint32_t mask) {
+static void hw_set_bits(io_rw_32 *addr, uint32_t mask) {
     *(io_rw_32 *) hw_set_alias_untyped((volatile void *) addr) = mask;
 }
 
@@ -128,7 +128,7 @@ __force_inline static void hw_set_bits(io_rw_32 *addr, uint32_t mask) {
  * \param addr Address of writable register
  * \param mask Bit-mask specifying bits to clear
  */
-__force_inline static void hw_clear_bits(io_rw_32 *addr, uint32_t mask) {
+static void hw_clear_bits(io_rw_32 *addr, uint32_t mask) {
     *(io_rw_32 *) hw_clear_alias_untyped((volatile void *) addr) = mask;
 }
 
@@ -138,7 +138,7 @@ __force_inline static void hw_clear_bits(io_rw_32 *addr, uint32_t mask) {
  * \param addr Address of writable register
  * \param mask Bit-mask specifying bits to invert
  */
-__force_inline static void hw_xor_bits(io_rw_32 *addr, uint32_t mask) {
+static void hw_xor_bits(io_rw_32 *addr, uint32_t mask) {
     *(io_rw_32 *) hw_xor_alias_untyped((volatile void *) addr) = mask;
 }
 
@@ -154,7 +154,7 @@ __force_inline static void hw_xor_bits(io_rw_32 *addr, uint32_t mask) {
  * \param values Bits values
  * \param write_mask Mask of bits to change
  */
-__force_inline static void hw_write_masked(io_rw_32 *addr, uint32_t values, uint32_t write_mask) {
+static void hw_write_masked(io_rw_32 *addr, uint32_t values, uint32_t write_mask) {
     hw_xor_bits(addr, (*addr ^ values) & write_mask);
 }
 
