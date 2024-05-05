@@ -82,3 +82,4 @@ workbench/build-*
 documents/generated/*
 build-cabletester-testbench-Desktop-Debug/*
 build-cabletester-testbench-Desktop_Qt_*
+build-cabletester-testbench-Desktop-Debug/.qtc_clangd/compile_commands.json
