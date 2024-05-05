@@ -1,0 +1,6 @@
+Description written for Froscon 2024
+License:  Creative Commons Attribution 4.0 International license 
+
+
+A longer description of the event. Use this to give additional details that did not fit in the abstract. 
+Both, abstract and description, will be shown on the conference website.

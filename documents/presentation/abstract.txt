@@ -1,0 +1,20 @@
+Abstract written for Froscon 2024
+License:  Creative Commons Attribution 4.0 International license 
+
+https://frab.froscon.org/en/froscon2024/cfp/events/new
+
+
+Title:
+Writing an open source embedded program to present experiences from my work life without breaking my NDA.
+
+Subtitle:
+Challenges, pitfalls and techniques for debugging and automatic unit testing of microcontroller programs.
+
+One short paragraph that succinctly describes the event:
+This talk is about writing and testing a microcontroller program. 
+This talk zooms in on techniques used, like unit testing, porting the program to a PC, using a github action for automatic testing and deploying and more.
+
+like unit testing, mocking the microcontroller on a PC, automatic testing by a CICD 
+
+Links:
+https://github.com/cdwijs/cable-tester
