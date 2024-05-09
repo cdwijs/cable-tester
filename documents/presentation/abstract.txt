@@ -1,6 +1,8 @@
 Abstract written for Froscon 2024
 License:  Creative Commons Attribution 4.0 International license 
 
+examples: https://programm.froscon.org/2021/events.html
+
 https://frab.froscon.org/en/froscon2024/cfp/events/new
 
 
