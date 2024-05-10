@@ -26,7 +26,6 @@ typedef enum
     ST_SAMP_SCAN,
 }TSAMPLERSTATE;
 
-
 typedef struct
 {
     uint8_t trigger: 1;
