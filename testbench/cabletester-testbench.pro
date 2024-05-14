@@ -17,6 +17,7 @@ SOURCES += \
     ../cable-tester/cable-tester.c \
     ../cable-tester/sampler-test.c \
     ../cable-tester/sampler.c \
+    ../documents/presentation/code/main.c \
     ../documents/presentation/code/sampler-combined.c \
     ../documents/presentation/code/sapler-different-files.c \
     main.cpp \
