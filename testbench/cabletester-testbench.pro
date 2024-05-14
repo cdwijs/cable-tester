@@ -18,6 +18,7 @@ SOURCES += \
     ../cable-tester/sampler-test.c \
     ../cable-tester/sampler.c \
     ../documents/presentation/code/sampler-combined.c \
+    ../documents/presentation/code/sapler-different-files.c \
     main.cpp \
     mainwindow.cpp \
     mockup/hardware/gpio-test.c \
