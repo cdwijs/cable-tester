@@ -20,6 +20,7 @@ SOURCES += \
     ../documents/presentation/code/main.c \
     ../documents/presentation/code/sampler-combined.c \
     ../documents/presentation/code/sapler-different-files.c \
+    ../documents/presentation/code/single-stest-file.c \
     main.cpp \
     mainwindow.cpp \
     mockup/hardware/gpio-test.c \
@@ -38,6 +39,7 @@ HEADERS += \
     ../cable-tester/sampler-test.h \
     ../cable-tester/sampler.h \
     ../cable-tester/utils.h \
+    ../documents/presentation/code/fake-everything.h \
     mainwindow.h \
     mockup/boards/pico.h \
     mockup/hardware/address_mapped.h \
