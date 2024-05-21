@@ -21,6 +21,8 @@ SOURCES += \
     ../documents/presentation/code/sampler-combined.c \
     ../documents/presentation/code/sapler-different-files.c \
     ../documents/presentation/code/single-stest-file.c \
+    ../documents/presentation/code/traffic_light-compact.c \
+    ../documents/presentation/code/traffic_light.c \
     main.cpp \
     mainwindow.cpp \
     mockup/hardware/gpio-test.c \
