@@ -7,16 +7,30 @@ https://frab.froscon.org/en/froscon2024/cfp/events/new
 
 
 Title:
-Writing an open source embedded program to present experiences from my work life without breaking my NDA.
+Using unit tests to guarantee embedded code works as promised by the state diagram.
 
 Subtitle:
-Challenges, pitfalls and techniques for debugging and automatic unit testing of microcontroller programs.
+While keeping the testcode separate from the production code.
 
 One short paragraph that succinctly describes the event:
-This talk is about writing and testing a microcontroller program. 
-This talk zooms in on techniques used, like unit testing, porting the program to a PC, using a github action for automatic testing and deploying and more.
+In this talk a method is presented to guarantee the embedded code works as promised by the state diagram. This is achieved by converting the state diagram to states and transitions, and then use unit tests to check them in the code. Finally techniques are presented to keep the production code and the test code separate.
 
-like unit testing, mocking the microcontroller on a PC, automatic testing by a CICD 
+
+A longer description of the event. Use this to give additional details that did not fit in the abstract. Both, abstract and description, will be shown on the conference website. (HTML)
+
+When writing medical software, it's important the delivered program works the way it should work. 
+One fundamental problem is that a human is generally unable to give guarantees about the functionality of code by just looking at it.
+This talk goes into details about each of the following steps to make sure the written code conforms to the desired functionality.
+First the desired functionality of the program is expressed by a state diagram.
+Then the state diagram is converted into states and transitions.
+Graphwiz is then used to visualise said states and transitions.
+Then the transitions are converted into unit tests
+Finally the unit tests are run against the code.
+
+All of the above steps are simple enough to be done by humans. This enables the entire team to check the funcionality of the software, not just the programmer. This enhances the change bugs are found before the program is released.
+
+Visible for admins and users, contains additional information.
+This presentation is currently a work in progres. 
 
 Links:
-https://github.com/cdwijs/cable-tester
+https://github.com/cdwijs/cable-tester/tree/main/documents/presentation
